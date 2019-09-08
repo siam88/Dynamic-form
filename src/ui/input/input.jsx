@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import { Grid, TextField, withStyles } from '@material-ui/core';
+import { Grid, TextField, } from '@material-ui/core';
 import ImageViewer from "../imageUploader/imageUploader"
-
+import styles from "./input.module.css"
 export class Input extends Component {
     render() {
         let props = this.props;
         let type = this.props.config.type;
-
+        let inputClass = props.valid ? styles.validInput : styles.validInput + " " + styles.invalidInput;
         let label = (
             <p>
                 {props.required && <span style={{ color: "red" }}>*</span>}
                 {props.label} :
+            </p>
+        )
+
+        let errorMassege = (
+            <p className={styles.errorMsg} >
+                {props.errorMsg}
             </p>
         )
 
@@ -37,9 +43,15 @@ export class Input extends Component {
                         </Grid>
 
                         <Grid item xs={8} sm={8} md={8}>
-                            <TextField
-                                {...props.config} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}
-                            />
+                            <Grid item xs={8} md={8} sm={8}>
+                                <TextField className={inputClass}
+                                    {...props.config} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={4} md={4} sm={4}>
+                                {errorMassege}
+                            </Grid>
+
                         </Grid>
                     </Grid>
                 );
@@ -52,9 +64,17 @@ export class Input extends Component {
                         </Grid>
 
                         <Grid item xs={8} md={8} sm={8}>
-                            <TextField
-                                {...props.config} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}
-                            />
+                            <Grid item xs={8} md={8} sm={8}>
+                                <TextField className={styles.inputClass}
+                                    {...props.config} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={4} md={4} sm={4}>
+                                {errorMassege}
+                            </Grid>
+
+
+
                         </Grid>
                     </Grid>
                 )
@@ -67,12 +87,19 @@ export class Input extends Component {
                         </Grid>
 
                         <Grid item xs={8} md={8} sm={8}>
+                            <Grid item xs={8} md={8} sm={8}>
+                                <select className={styles.inputClass} onChange={e => props.inputChangeHandler(props.elementName, e.target.value)}>
+                                    {props.config.options.map((e, i) => (
+                                        <option key={i} value={e.value} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}>{e.label}</option>
+                                    ))}
+                                </select>
+                            </Grid>
+                            <Grid item xs={4} md={4} sm={4}>
+                                {errorMassege}
+                            </Grid>
 
-                            <select>
-                                {props.config.options.map((e, i) => (
-                                    <option key={i} value={e.value} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}>{e.label}</option>
-                                ))}
-                            </select>
+
+
                         </Grid>
                     </Grid>
                 )

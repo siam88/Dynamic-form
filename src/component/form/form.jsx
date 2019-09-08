@@ -8,18 +8,79 @@ import { Button } from '@material-ui/core';
 class Form extends Component {
     state = {
         productForm: productForm,
-        styles: stylesLight
+        styles: stylesLight,
+        formIsValid: false
     }
 
 
-    productInputChangehandle = (elementname, value) => {
+    productInputChangehandle = (elementName, value) => {
         let productForm = { ...this.state.productForm };
-        productForm[elementname].config.value = value;
+        productForm[elementName].config.value = value;
+        let valid = this.checkValidity(value, productForm[elementName].validation);
+        productForm[elementName].valid = valid.valid;
+        productForm[elementName].errorMsg = valid.errorMsg;
+        this.setState({ formIsValid: this.formIsValid(productForm) })
         this.setState({
             productForm: productForm
         })
     }
 
+    formIsValid = form => {
+        let isValid = true;
+
+        for (let e in form) {
+            if (form[e].separetor === undefined) {
+                form[e].isValid = false;
+                break;
+            }
+        }
+        return isValid
+    };
+
+    checkValidity(value, rules) {
+        if (rules === undefined) {
+            return true;
+        }
+
+        let isValid = true;
+        let errorMsg = " ";
+
+        if (rules.required.value && rules.required.value !== "file" && rules.required.value !== "array") {
+            isValid = value.trim() !== "" && isValid;
+
+        }
+        if (rules.type.value === "file") {
+            isValid = true;
+            return { valid: isValid, errorMsg: errorMsg }
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength.value && isValid;
+            errorMsg += value.length < rules.minLength.value ? rules.minLength.msg + "" : "";
+        }
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength.value && isValid;
+            errorMsg += value.length > rules.maxLength.value ? rules.maxLength.msg : ""
+        }
+
+        if (rules.type.value === Number) {
+            isValid = value != NaN;
+
+            if (isValid && rules.min) {
+                isValid = value >= rules.min.value && isValid;
+                errorMsg += value < rules.min.value ? rules.min.msg + "" : ""
+            }
+            if (isValid && rules.max) {
+                isValid = value <= rules.max.value && isValid;
+                errorMsg += value >= rules.max.value ? rules.max.msg + "" : ""
+            }
+
+        }
+        if (rules.type.value === Array) {
+            isValid = value.length > 0 && isValid;
+        }
+        return { valid: isValid, errorMsg: errorMsg }
+    }
 
 
 
@@ -51,7 +112,15 @@ class Form extends Component {
                     {formProductElementArray.map((e, i) => {
                         return (
 
-                            <Input key={i} config={e.config} label={e.label} valid={e.valid} errorMsg={e.errorMsg} required={e.required} elementName={e.elementName} inputChangeHandler={this.productInputChangehandle} />
+                            <Input
+                                key={i}
+                                config={e.config}
+                                label={e.label}
+                                valid={e.valid}
+                                errorMsg={e.errorMsg}
+                                required={e.required}
+                                elementName={e.elementName}
+                                inputChangeHandler={this.productInputChangehandle} />
                         )
                     })}
                 </div>
