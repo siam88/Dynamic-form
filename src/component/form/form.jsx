@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import productForm from "../../data/product";
 import Input from "../../ui/input/input"
-
+import stylesLight from "./formLight.module.css";
+import stylesDark from "./formDark.module.css";
+import { Button } from '@material-ui/core';
 
 class Form extends Component {
     state = {
-        productForm: productForm
+        productForm: productForm,
+        styles: stylesLight
     }
 
 
@@ -23,6 +26,7 @@ class Form extends Component {
 
 
     render() {
+        let styles = this.state.styles;
         let formProductElementArray = [];
         let formProduct = { ...this.state.productForm };
         for (let element in formProduct) {
@@ -31,7 +35,7 @@ class Form extends Component {
                 config: formProduct[element].config,
                 valid: formProduct[element].valid,
                 errorMsg: formProduct[element].errorMsg,
-                required: formProduct[element].validation.required.valid,
+                required: formProduct[element].validation.required.value,
                 elementName: element
 
             };
@@ -39,13 +43,18 @@ class Form extends Component {
 
         }
         return (
-            <div>
-                {formProductElementArray.map((e, i) => {
-                    return (
+            <div className={styles.form}>
 
-                        <Input key={i} config={e.config} label={e.label} valid={e.valid} errorMsg={e.errorMsg} required={e.required} elementName={e.elementName} inputChangeHandler={this.productInputChangehandle} />
-                    )
-                })}
+                <Button onClick={() => this.setState({ styles: stylesDark })}>Dark</Button>
+                <Button onClick={() => this.setState({ styles: stylesLight })}>Light</Button>
+                <div className={styles.root}>
+                    {formProductElementArray.map((e, i) => {
+                        return (
+
+                            <Input key={i} config={e.config} label={e.label} valid={e.valid} errorMsg={e.errorMsg} required={e.required} elementName={e.elementName} inputChangeHandler={this.productInputChangehandle} />
+                        )
+                    })}
+                </div>
             </div>
         )
     }

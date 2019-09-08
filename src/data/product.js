@@ -65,7 +65,7 @@ const productData = {
             type: { value: Number, msg: "price Must be Number" },
             max: { value: 1000, msg: "Max  is 1000" },
             min: { value: 1, msg: "Min is 1" },
-            required: { value: false, msg: "discount is required " }
+            required: { value: true, msg: "discount is required " }
         },
         errorMsg: "",
         valid: false,
@@ -73,7 +73,7 @@ const productData = {
     },
     discount: {
         type: Number,
-        label: "Name",
+        label: "Discount",
         config: {
             type: "number",
             value: "",
@@ -106,11 +106,27 @@ const productData = {
             type: { value: Number, msg: "discount Must be string" },
             max: { value: 1000, msg: "Max  is 1000" },
             min: { value: 1, msg: "Min is 1" },
-            required: { value: false, msg: "discount is required " }
+            required: { value: true, msg: "discount is required " }
         },
         errorMsg: "",
         valid: false,
         touched: false
+    },
+    image: {
+        type: File,
+        label: "Upload Image",
+        config: {
+            type: "file",
+            value: null
+        },
+        validation: {
+            type: { value: "file", valid: ["jpeg", "jgp", "png"], msg: "must upload an image" },
+            required: { value: true, msg: "file format is not valid" }
+        },
+        errorMsg: "",
+        valid: false,
+        touched: false
+
     }
 
 
