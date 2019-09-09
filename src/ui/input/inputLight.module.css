@@ -5,7 +5,7 @@
   height: 30px;
   font-size: 15px;
   width:100%;
-  border: 1px solid rgb(173, 173, 173);
+  background: 1px solid rgb(173, 173, 173);
 }
 
 .invalidInput {
@@ -18,4 +18,7 @@
 .errorMsg{
   color:rgb(247, 76, 76);
   font-size: 12px;
+}
+.label{
+  color:rgb(80, 80, 80);
 }

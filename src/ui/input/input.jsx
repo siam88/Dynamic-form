@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import { Grid, TextField, } from '@material-ui/core';
-import ImageViewer from "../imageUploader/imageUploader"
-import styles from "./input.module.css"
+import { Grid, TextField } from '@material-ui/core';
+import ImageUploader from "../imageUploader/imageUploader"
+import styles from "./inputLight.module.css"
+
+
+
+
+
 export class Input extends Component {
+
     render() {
         let props = this.props;
         let type = this.props.config.type;
         let inputClass = props.valid ? styles.validInput : styles.validInput + " " + styles.invalidInput;
         let label = (
-            <p>
+            <p className={styles.label}>
                 {props.required && <span style={{ color: "red" }}>*</span>}
                 {props.label} :
             </p>
@@ -43,7 +49,7 @@ export class Input extends Component {
                         </Grid>
 
                         <Grid item xs={8} sm={8} md={8}>
-                            <Grid item xs={8} md={8} sm={8}>
+                            <Grid item xs={12} md={12} sm={12}>
                                 <TextField className={inputClass}
                                     {...props.config} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}
                                 />
@@ -64,8 +70,8 @@ export class Input extends Component {
                         </Grid>
 
                         <Grid item xs={8} md={8} sm={8}>
-                            <Grid item xs={8} md={8} sm={8}>
-                                <TextField className={styles.inputClass}
+                            <Grid item xs={12} md={12} sm={12}>
+                                <TextField className={inputClass}
                                     {...props.config} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}
                                 />
                             </Grid>
@@ -87,8 +93,8 @@ export class Input extends Component {
                         </Grid>
 
                         <Grid item xs={8} md={8} sm={8}>
-                            <Grid item xs={8} md={8} sm={8}>
-                                <select className={styles.inputClass} onChange={e => props.inputChangeHandler(props.elementName, e.target.value)}>
+                            <Grid item xs={12} md={12} sm={12}>
+                                <select className={inputClass} onChange={e => props.inputChangeHandler(props.elementName, e.target.value)}>
                                     {props.config.options.map((e, i) => (
                                         <option key={i} value={e.value} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}>{e.label}</option>
                                     ))}
@@ -112,7 +118,7 @@ export class Input extends Component {
                             {label}
                         </Grid>
                         <Grid item xs={8} md={8} sm={8}>
-                            <ImageViewer />
+                            <ImageUploader />
                         </Grid>
                     </Grid>
                 )

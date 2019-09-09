@@ -1,0 +1,10 @@
+.ImageHeader{
+  color: rgb(116, 116, 116);
+}
+.container{
+  height:300px;
+  width:100%;
+  border: 1px dashed rgb(151, 151, 151);
+  position: relative;
+  z-index: 10;
+}
