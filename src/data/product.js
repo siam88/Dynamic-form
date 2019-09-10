@@ -21,7 +21,8 @@ const productData = {
             type: "text",
             value: "",
             placeholder: "Id",
-            id: "custom-css-outlined-input"
+            id: "standard-number",
+            margin: "normal"
         },
         validation: {
             type: { value: String, msg: "Id Must be string" },

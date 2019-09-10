@@ -27,6 +27,18 @@ class Form extends Component {
         })
     }
 
+    productSubmitHandle = e => {
+        e.preventDefault();
+        let productForm = { ...this.state.productForm };
+        let formData = new FormData();
+
+        for (let element in productForm) {
+            if (productForm[element].separetor === undefined) {
+                formData.append(element, productForm[element].config.value)
+            }
+        }
+    }
+
     formIsValid = form => {
         let isValid = true;
 
@@ -68,7 +80,7 @@ class Form extends Component {
         }
 
         if (rules.type.value === Number) {
-            isValid = value != NaN;
+            isValid = value !== NaN;
 
             if (isValid && rules.min) {
                 isValid = value >= rules.min.value && isValid;
@@ -139,6 +151,8 @@ class Form extends Component {
                         )
                     })}
                 </div>
+                <br />
+                <Button style={{ width: "15%" }} variant="outlined" onClick={(e) => this.productSubmitHandle(e)} disabled={!(this.state.formIsValid)} >Submit</Button>
             </div>
         )
     }
