@@ -104,10 +104,8 @@ const productData = {
             ]
         },
         validation: {
-            type: { value: Number, msg: "discount Must be string" },
-            max: { value: 1000, msg: "Max  is 1000" },
-            min: { value: 1, msg: "Min is 1" },
-            required: { value: true, msg: "discount is required " }
+            type: { value: "select", msg: "Select any item" },
+            required: { value: true, msg: "selection required" }
         },
         errorMsg: "",
         valid: false,

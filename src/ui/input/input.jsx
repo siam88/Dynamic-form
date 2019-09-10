@@ -70,7 +70,7 @@ export class Input extends Component {
                         </Grid>
 
                         <Grid item xs={8} md={8} sm={8}>
-                            <Grid item xs={8} md={8} sm={8}>
+                            <Grid item xs={12} md={12} sm={12}>
                                 <TextField className={inputClass}
                                     {...props.config} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}
                                 />
@@ -121,9 +121,12 @@ export class Input extends Component {
                             <Grid item xs={12}>
                                 {errorMassege}
                             </Grid>
-                            <ImageUploader
-                                onFileLoad={props.inputChangeHandler}
-                                elementName={props.elementName} />
+                            <Grid item xs={12} md={8} sm={8}>
+                                <ImageUploader
+                                    onFileLoad={props.inputChangeHandler}
+                                    elementName={props.elementName} />
+                            </Grid>
+
                         </Grid>
                     </Grid>
                 )

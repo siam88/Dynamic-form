@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import styles from "./imageUploader.module.css"
 import { Grid, Button } from '@material-ui/core'
-import Image from "./image"
+import Image from "./image";
+
+
+
+
 const onDragStyle = {
     backgroundColor: "#87bce8",
     border: "3px dotted rgb(123, 132, 184)"
 }
-export class ImageUploader extends Component {
+class ImageUploader extends Component {
     state = {
         onDragStyle: {},
         images: []
@@ -20,7 +24,7 @@ export class ImageUploader extends Component {
         this.setState({
             images
         })
-        console.log(this.state.images);
+        this.props.onFileLoad(this.props.elementName, images);
 
     }
     render() {
@@ -43,7 +47,7 @@ export class ImageUploader extends Component {
                     <Button variant="contained" className={styles.browseButton}>Browse</Button>
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={12}>
+                <Grid item xs={12} sm={12} md={12} className={styles.imageviewer}>
                     {this.state.images.map((e, i) => (<Image url={e} key={i} index={i} />))}
                 </Grid>
             </Grid>
