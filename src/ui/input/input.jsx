@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, TextField, } from '@material-ui/core';
-import ImageViewer from "../imageUploader/imageUploader"
+import ImageUploader from "../imageUploader/imageUploader"
 import styles from "./input.module.css"
 export class Input extends Component {
     render() {
@@ -65,7 +65,7 @@ export class Input extends Component {
 
                         <Grid item xs={8} md={8} sm={8}>
                             <Grid item xs={8} md={8} sm={8}>
-                                <TextField className={styles.inputClass}
+                                <TextField className={inputClass}
                                     {...props.config} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}
                                 />
                             </Grid>
@@ -88,7 +88,7 @@ export class Input extends Component {
 
                         <Grid item xs={8} md={8} sm={8}>
                             <Grid item xs={8} md={8} sm={8}>
-                                <select className={styles.inputClass} onChange={e => props.inputChangeHandler(props.elementName, e.target.value)}>
+                                <select className={inputClass} onChange={e => props.inputChangeHandler(props.elementName, e.target.value)}>
                                     {props.config.options.map((e, i) => (
                                         <option key={i} value={e.value} onChange={(e) => props.inputChangeHandler(props.elementName, e.target.value)}>{e.label}</option>
                                     ))}
@@ -112,7 +112,12 @@ export class Input extends Component {
                             {label}
                         </Grid>
                         <Grid item xs={8} md={8} sm={8}>
-                            <ImageViewer />
+                            <Grid item xs={12}>
+                                {errorMassege}
+                            </Grid>
+                            <ImageUploader
+                                onFileLoad={props.inputChangeHandler}
+                                elementName={props.elementName} />
                         </Grid>
                     </Grid>
                 )

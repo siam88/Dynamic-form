@@ -14,14 +14,16 @@ class Form extends Component {
 
 
     productInputChangehandle = (elementName, value) => {
+
         let productForm = { ...this.state.productForm };
         productForm[elementName].config.value = value;
+        productForm[elementName].touched = true;
         let valid = this.checkValidity(value, productForm[elementName].validation);
         productForm[elementName].valid = valid.valid;
         productForm[elementName].errorMsg = valid.errorMsg;
         this.setState({ formIsValid: this.formIsValid(productForm) })
         this.setState({
-            productForm: productForm
+            productForm
         })
     }
 
@@ -30,11 +32,13 @@ class Form extends Component {
 
         for (let e in form) {
             if (form[e].separetor === undefined) {
-                form[e].isValid = false;
-                break;
+                if (form[e].valid === false) {
+                    isValid = false;
+                    break;
+                }
             }
         }
-        return isValid
+        return isValid;
     };
 
     checkValidity(value, rules) {
@@ -45,7 +49,7 @@ class Form extends Component {
         let isValid = true;
         let errorMsg = " ";
 
-        if (rules.required.value && rules.required.value !== "file" && rules.required.value !== "array") {
+        if (rules.required.value && rules.type.value !== "file" && rules.type.value !== "array") {
             isValid = value.trim() !== "" && isValid;
 
         }
@@ -82,21 +86,32 @@ class Form extends Component {
         return { valid: isValid, errorMsg: errorMsg }
     }
 
+    productSubmitHandle = e => {
+        e.preventDefault();
+        let productForm = { ...this.state.productForm };
+        //let product = {};
+        let formData = new FormData();
 
+        for (let element in productForm) {
+            // product[element] = productForm[element].config.value;
+            if (productForm[element].separetor === undefined)
+                formData.append(element, productForm[element].config.value);
+        }
+    }
 
 
 
     render() {
         let styles = this.state.styles;
         let formProductElementArray = [];
-        let formProduct = { ...this.state.productForm };
-        for (let element in formProduct) {
+        let productform = { ...this.state.productForm };
+        for (let element in productform) {
             let formElement = {
-                label: formProduct[element].label,
-                config: formProduct[element].config,
-                valid: formProduct[element].valid,
-                errorMsg: formProduct[element].errorMsg,
-                required: formProduct[element].validation.required.value,
+                label: productform[element].label,
+                config: productform[element].config,
+                valid: productform[element].touched ? productform[element].valid : true,
+                errorMsg: productform[element].errorMsg,
+                required: productform[element].validation.required.value,
                 elementName: element
 
             };

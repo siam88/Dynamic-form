@@ -1,0 +1,38 @@
+.imageUploadHeader{
+    color: rgb(107, 107, 107);
+}
+.container{
+  height:300px;
+  width:100%;
+  border: 1px dashed rgb(151, 151, 151);
+  position: relative;
+  z-index: 10;
+}
+.input{
+  opacity: 0;
+  top:0;
+  left:0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  
+}
+.browseButton{
+  position:absolute;
+  top:-50px;
+  left:45%;
+  z-index: 1;
+}
+.image{
+   height: 100px;
+   width: 100px;
+  
+}
+.imageviewer{
+  display:flex;
+  width:500px;
+  overflow:auto;
+}
+.imageview{
+  position:relative;
+}
