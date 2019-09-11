@@ -30,7 +30,7 @@
 }
 .imageviewer{
   display:flex;
-  width:500px;
+  width:100%;
   overflow:auto;
 }
 .imageview{

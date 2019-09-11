@@ -40,7 +40,7 @@ class ImageUploader extends Component {
         return (
             <Grid container>
                 <h4 className={styles.imageUploadHeader}>Drag and drop the image here</h4>
-                <Grid item xs={12} sm={12} md={8} className={styles.container} style={this.state.onDragStyle}>
+                <Grid item xs={12} sm={12} md={12} className={styles.container} style={this.state.onDragStyle}>
                     <input
                         type="file"
                         ref={
@@ -52,7 +52,7 @@ class ImageUploader extends Component {
                         onDrop={() => this.setState({ onDragStyle: {} })}
                         onChange={this.onFileLoad} />
                 </Grid>
-                <Grid item xs={11} sm={11} md={7}>
+                <Grid item xs={11} sm={11} md={11}>
                     <Button variant="contained" className={styles.browseButton}>Browse</Button>
                 </Grid>
 

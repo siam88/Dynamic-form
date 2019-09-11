@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import productForm from "../../data/product";
+import varientForm from "../../data/varient";
 import Input from "../../ui/input/input"
 import stylesLight from "./formLight.module.css";
 import stylesDark from "./formDark.module.css";
@@ -9,10 +10,13 @@ class Form extends Component {
     state = {
         productForm: productForm,
         styles: stylesLight,
-        formIsValid: false
+        formIsValid: false,
+
+        varientForm: varientForm
+
     }
 
-
+    // product functions start
     productInputChangehandle = (elementName, value) => {
 
         let productForm = { ...this.state.productForm };
@@ -38,7 +42,40 @@ class Form extends Component {
             }
         }
     }
+    productSubmitHandle = e => {
+        e.preventDefault();
+        let productForm = { ...this.state.productForm };
+        //let product = {};
+        let formData = new FormData();
 
+        for (let element in productForm) {
+            // product[element] = productForm[element].config.value;
+            if (productForm[element].separetor === undefined)
+                formData.append(element, productForm[element].config.value);
+        }
+    }
+    // product functions end
+
+    //verient functions starts
+    varientInputChangehandle = (elementName, value) => {
+
+        let varientForm = { ...this.state.varientForm };
+        varientForm[elementName].config.value = value;
+        varientForm[elementName].touched = true;
+        let valid = this.checkValidity(value, varientForm[elementName].validation);
+        varientForm[elementName].valid = valid.valid;
+        varientForm[elementName].errorMsg = valid.errorMsg;
+        this.setState({ formIsValid: this.formIsValid(varientForm) })
+        this.setState({
+            varientForm
+        })
+    }
+
+
+    //verient functions starts
+
+
+    //common functions starts
     formIsValid = form => {
         let isValid = true;
 
@@ -98,18 +135,8 @@ class Form extends Component {
         return { valid: isValid, errorMsg: errorMsg }
     }
 
-    productSubmitHandle = e => {
-        e.preventDefault();
-        let productForm = { ...this.state.productForm };
-        //let product = {};
-        let formData = new FormData();
 
-        for (let element in productForm) {
-            // product[element] = productForm[element].config.value;
-            if (productForm[element].separetor === undefined)
-                formData.append(element, productForm[element].config.value);
-        }
-    }
+    //common functions end
 
 
 
@@ -130,6 +157,22 @@ class Form extends Component {
             formProductElementArray.push(formElement);
 
         }
+
+        let varientFormElementArray = [];
+        let varientForm = { ...this.state.varientForm };
+
+        for (let element in varientForm) {
+            let varients = {
+                label: varientForm[element].label,
+                config: varientForm[element].config,
+                valid: varientForm[element].touched ? varientForm[element].valid : true,
+                errorMsg: varientForm[element].errorMsg,
+                required: varientForm[element].validation.required.value,
+                elementName: element
+            }
+            varientFormElementArray.push(varients)
+        }
+
         return (
             <div className={styles.form}>
 
@@ -152,9 +195,28 @@ class Form extends Component {
                     })}
                 </div>
                 <br />
+                <div className={styles.root}>
+                    {varientFormElementArray.map((e, i) => {
+                        return (
+                            <Input
+                                key={i}
+                                config={e.config}
+                                label={e.label}
+                                valid={e.valid}
+                                errorMsg={e.errorMsg}
+                                required={e.required}
+                                elementName={e.elementName}
+                                inputChangeHandler={this.varientInputChangehandle} />
+                        )
+                    })}
+                </div>
                 <Button style={{ width: "15%" }} variant="outlined" onClick={(e) => this.productSubmitHandle(e)} disabled={!(this.state.formIsValid)} >Submit</Button>
             </div>
         )
+
+
+
+
     }
 }
 
