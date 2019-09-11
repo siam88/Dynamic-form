@@ -36,3 +36,18 @@
 .imageview{
   position:relative;
 }
+.visibleDeleteButton{
+  position: absolute;
+  left: 1;
+  
+  background: rgb(243, 71, 71);
+  border-radius: 50%;
+  color: whitesmoke;
+  box-shadow: none;
+  border: 1px solid blanchedalmond;
+}
+.hideDeleteButton{
+  position: absolute;
+  left: 72px;
+  display: none
+}

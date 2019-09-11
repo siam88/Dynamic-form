@@ -27,6 +27,15 @@ class ImageUploader extends Component {
         this.props.onFileLoad(this.props.elementName, images);
 
     }
+
+    deleteImage = (index) => {
+        let images = [...this.state.images];
+        images = images.filter((e, i) => i !== index);
+        this.setState({
+            images
+        })
+        this.props.onFileLoad(this.props.elementName, images)
+    }
     render() {
         return (
             <Grid container>
@@ -48,7 +57,15 @@ class ImageUploader extends Component {
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={12} className={styles.imageviewer}>
-                    {this.state.images.map((e, i) => (<Image url={e} key={i} index={i} />))}
+                    {this.state.images.map((e, i) =>
+                        (
+                            <Image
+                                url={e}
+                                key={i}
+                                index={i}
+                                deleteImage={() => this.deleteImage(i)}
+                                onFileLoad={this.onFileLoad} />
+                        ))}
                 </Grid>
             </Grid>
         )
