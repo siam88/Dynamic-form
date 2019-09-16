@@ -39,7 +39,7 @@ const varientData = {
     },
     color: {
         type: "select",
-        label: "Size",
+        label: "Color",
         config: {
             type: "select",
             value: "",

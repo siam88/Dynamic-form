@@ -23,9 +23,9 @@ class Form extends Component {
         productForm: productForm,
         styles: stylesLight,
         formIsValid: false,
-
         varientForm: varientForm,
         varientFormIsValid: false,
+        verientArray: []
     }
 
     // product functions start
@@ -54,20 +54,33 @@ class Form extends Component {
             }
         }
     }
-    productSubmitHandle = e => {
+    verientSubmitHandle = e => {
         e.preventDefault();
-        let productForm = { ...this.state.productForm };
-        //let product = {};
-        let formData = new FormData();
+        let varientForm = { ...this.state.varientForm };
+        let verientArray = [...this.state.verientArray];
 
-        for (let element in productForm) {
-            // product[element] = productForm[element].config.value;
-            if (productForm[element].separetor === undefined)
-                formData.append(element, productForm[element].config.value);
+        let varient = {};
+        for (let e in varientForm) {
+            if (varientForm[e].separetor === undefined) {
+                varient[e] = varientForm[e].config.value;
+            }
         }
+        verientArray.push(varient);
+
+        console.log("verient=>", varient);
+        console.log("verientArray=>", verientArray);
+        this.setState({
+            verientArray
+        })
     }
     // product functions end
-
+    deleteImageFromVerientTable = (i, index) => {
+        let varientArray = [...this.state.verientArray];
+        let varient = varientArray[i];
+        varient.image = varient.image.filter((e, i) => i != index);
+        varientArray[i] = varient;
+        this.setState({ varientArray });
+    };
     //verient functions starts
     varientInputChangehandle = (elementName, value) => {
 
@@ -225,21 +238,22 @@ class Form extends Component {
                         })}
                     </div>
                     <Grid item xs={12} md={12} sm={12} >
-                        <Button style={{ width: "15%", left: "50%", marginBottom: "10px" }} variant="outlined" onClick={(e) => this.verientSubmitHandle(e)} disabled={!(this.state.varientFormIsValid)} >Verient Submit</Button>
+                        <Button style={{ width: "10%", left: "50%", marginBottom: "10px" }} variant="outlined" onClick={this.verientSubmitHandle} disabled={!(this.state.varientFormIsValid)} >Verient Submit</Button>
 
                     </Grid>
 
 
                     <Grid item xs={12} md={12} sm={12}>
                         <Table
+                            tableData={this.state.verientArray}
                             tableHeaders={createTableData(this.state.varientForm)}
-                            tableData={this.state.varientArray}
+                            deleteImage={this.deleteImageFromVerientTable}
                         />
                     </Grid>
 
 
                     <Grid item xs={12} md={12} sm={12}>
-                        <Button style={{ width: "15%", left: "50%" }} variant="outlined" onClick={(e) => this.productSubmitHandle(e)} disabled={!(this.state.formIsValid && this.state.varientFormIsValid)} >Form Submit</Button>
+                        <Button style={{ width: "10%", left: "50%" }} variant="outlined" onClick={(e) => this.productSubmitHandle(e)} disabled={!(this.state.formIsValid && this.state.varientFormIsValid)} >Form Submit</Button>
 
                     </Grid>
                 </div>
