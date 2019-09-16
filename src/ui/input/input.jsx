@@ -45,7 +45,7 @@ export class Input extends Component {
                     <Grid container>
 
                         <Grid item xs={4} md={4} sm={4}>
-                            {label}
+                            <p>{label}</p>
                         </Grid>
 
                         <Grid item xs={8} sm={8} md={8}>
@@ -66,7 +66,7 @@ export class Input extends Component {
                 return (
                     <Grid container>
                         <Grid item xs={4} md={4} sm={4}>
-                            {label}
+                            <p>{label}</p>
                         </Grid>
 
                         <Grid item xs={8} md={8} sm={8}>

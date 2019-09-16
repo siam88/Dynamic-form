@@ -4,16 +4,28 @@ import varientForm from "../../data/varient";
 import Input from "../../ui/input/input"
 import stylesLight from "./formLight.module.css";
 import stylesDark from "./formDark.module.css";
-import { Button } from '@material-ui/core';
+import { Grid, Button, Tab } from '@material-ui/core';
+import Table from "../../component/table/table";
 
+
+
+const createTableData = (obj) => {
+    let data = [];
+    for (let e in obj) {
+        if (obj[e].label && obj[e].separetor === undefined) {
+            data.push(obj[e].label);
+        }
+    }
+    return data;
+}
 class Form extends Component {
     state = {
         productForm: productForm,
         styles: stylesLight,
         formIsValid: false,
 
-        varientForm: varientForm
-
+        varientForm: varientForm,
+        varientFormIsValid: false,
     }
 
     // product functions start
@@ -65,7 +77,7 @@ class Form extends Component {
         let valid = this.checkValidity(value, varientForm[elementName].validation);
         varientForm[elementName].valid = valid.valid;
         varientForm[elementName].errorMsg = valid.errorMsg;
-        this.setState({ formIsValid: this.formIsValid(varientForm) })
+        this.setState({ varientFormIsValid: this.formIsValid(varientForm) })
         this.setState({
             varientForm
         })
@@ -174,46 +186,66 @@ class Form extends Component {
         }
 
         return (
-            <div className={styles.form}>
+            <Grid container>
+                <div className={styles.form}>
 
-                <Button onClick={() => this.setState({ styles: stylesDark })}>Dark</Button>
-                <Button onClick={() => this.setState({ styles: stylesLight })}>Light</Button>
-                <div className={styles.root}>
-                    {formProductElementArray.map((e, i) => {
-                        return (
+                    <Button onClick={() => this.setState({ styles: stylesDark })}>Dark</Button>
+                    <Button onClick={() => this.setState({ styles: stylesLight })}>Light</Button>
+                    <div className={styles.root}>
+                        {formProductElementArray.map((e, i) => {
+                            return (
 
-                            <Input
-                                key={i}
-                                config={e.config}
-                                label={e.label}
-                                valid={e.valid}
-                                errorMsg={e.errorMsg}
-                                required={e.required}
-                                elementName={e.elementName}
-                                inputChangeHandler={this.productInputChangehandle} />
-                        )
-                    })}
+                                <Input
+                                    key={i}
+                                    config={e.config}
+                                    label={e.label}
+                                    valid={e.valid}
+                                    errorMsg={e.errorMsg}
+                                    required={e.required}
+                                    elementName={e.elementName}
+                                    inputChangeHandler={this.productInputChangehandle} />
+                            )
+                        })}
+                    </div>
+                    <br />
+                    <div className={styles.root}>
+                        {varientFormElementArray.map((e, i) => {
+                            return (
+                                <Input
+                                    key={i}
+                                    config={e.config}
+                                    label={e.label}
+                                    valid={e.valid}
+                                    errorMsg={e.errorMsg}
+                                    required={e.required}
+                                    elementName={e.elementName}
+                                    inputChangeHandler={this.varientInputChangehandle}
+                                    styles={this.state.style} />
+                            )
+                        })}
+                    </div>
+                    <Grid item xs={12} md={12} sm={12} >
+                        <Button style={{ width: "15%", left: "50%", marginBottom: "10px" }} variant="outlined" onClick={(e) => this.verientSubmitHandle(e)} disabled={!(this.state.varientFormIsValid)} >Verient Submit</Button>
+
+                    </Grid>
+
+
+                    <Grid item xs={12} md={12} sm={12}>
+                        <Table
+                            tableHeaders={createTableData(this.state.varientForm)}
+                            tableData={this.state.varientArray}
+                        />
+                    </Grid>
+
+
+                    <Grid item xs={12} md={12} sm={12}>
+                        <Button style={{ width: "15%", left: "50%" }} variant="outlined" onClick={(e) => this.productSubmitHandle(e)} disabled={!(this.state.formIsValid && this.state.varientFormIsValid)} >Form Submit</Button>
+
+                    </Grid>
                 </div>
-                <br />
-                <div className={styles.root}>
-                    {varientFormElementArray.map((e, i) => {
-                        return (
-                            <Input
-                                key={i}
-                                config={e.config}
-                                label={e.label}
-                                valid={e.valid}
-                                errorMsg={e.errorMsg}
-                                required={e.required}
-                                elementName={e.elementName}
-                                inputChangeHandler={this.varientInputChangehandle} />
-                        )
-                    })}
-                </div>
-                <Button style={{ width: "15%" }} variant="outlined" onClick={(e) => this.productSubmitHandle(e)} disabled={!(this.state.formIsValid)} >Submit</Button>
-            </div>
+            </Grid>
+
         )
-
 
 
 
