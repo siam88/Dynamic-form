@@ -20,7 +20,7 @@ export class Image extends Component {
         let props = this.props;
         let height = props.height === undefined ? 100 : props.height;
         let width = props.width === undefined ? 100 : props.width;
-        let url = typeof (props.url) != String ? URL.createObjectURL(props.url) : url;
+        let url = typeof (props.url) != String ? URL.createObjectURL(props.url) : props.url;
         return (
             <div className={styles.imageView} onMouseEnter={this.mouseEnterInImage} onMouseLeave={this.mouseLeaveTheImage}>
                 <button id="deletebutton" className={this.state.deleteButtonStyle} onClick={props.deleteImage}>X</button>

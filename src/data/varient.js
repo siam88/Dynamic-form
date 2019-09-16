@@ -59,6 +59,20 @@ const varientData = {
         valid: false,
         touched: false
     },
+    packagePrice: {
+        type: "packagePricingBox",
+        label: "Package Price",
+        config: {
+            type: "packagePricingBox",
+            value: []
+        },
+        validation: {
+            required: { value: false, msg: "" }
+        },
+        errorMsg: "",
+        valid: true,
+        touched: false
+    },
     image: {
         type: File,
         label: "Upload Image",

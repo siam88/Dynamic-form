@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
-import { Grid, TextField } from '@material-ui/core';
+import { Grid, TextField, Button } from '@material-ui/core';
 import ImageUploader from "../imageUploader/imageUploader"
 import styles from "./inputLight.module.css"
 
-
+import PackagePricing from "../packagePricingBox/packagePricingBox"
 
 
 
 export class Input extends Component {
+
+    state = {
+        packagePricingModal: this.props.packagePricing && this.props.packagePricing.length ? true : false
+    }
+
+
 
     render() {
         let props = this.props;
@@ -125,6 +131,35 @@ export class Input extends Component {
                                 <ImageUploader
                                     onFileLoad={props.inputChangeHandler}
                                     elementName={props.elementName} />
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+                )
+
+            case "packagePricingBox":
+                return (
+                    <Grid container>
+                        <Grid item xs={4} md={4} sm={4}>
+                            {label}
+                        </Grid>
+                        <Grid item xs={8} md={8} sm={8}>
+                            <Grid item xs={12}>
+                                {errorMassege}
+                            </Grid>
+                            <Grid item xs={12} md={12} sm={12}>
+                                <Button variant="outlined" onClick={() => this.setState({ packagePricingModal: !this.state.packagePricingModal })}>
+                                    {this.state.packagePricingModal ? (<span>{"Close package Pricing"}</span>) : (<span>{"Open package Pricing"}</span>)}}
+                                </Button>
+                                {this.state.packagePricingModal && (
+                                    <div style={{ width: "100%" }}>
+                                        <PackagePricing
+                                            prices={props.config.value}
+                                            addPriceHandle={props.addPriceHandle}
+                                            deletePriceHandle={props.deletePriceHandle}
+                                        />
+                                    </div>
+                                )}
                             </Grid>
 
                         </Grid>

@@ -163,7 +163,21 @@ class Form extends Component {
 
     //common functions end
 
+    addPriceHandle = (piece, price) => {
+        let varientForm = { ...this.state.varientForm }
+        let packagePrice = { piece, price };
 
+        varientForm.packagePrice.config.value.push(packagePrice);
+        this.setState({ varientForm });
+    }
+
+    deletePriceHandle = (index) => {
+        let varientForm = { ...this.state.varientForm };
+        let packagePrice = varientForm.packagePrice.config.value
+        packagePrice = packagePrice.filter((e, i) => i !== index)
+        varientForm.packagePrice.config.value = packagePrice;
+        this.setState({ varientForm })
+    }
 
     render() {
         let styles = this.state.styles;
@@ -216,7 +230,10 @@ class Form extends Component {
                                     errorMsg={e.errorMsg}
                                     required={e.required}
                                     elementName={e.elementName}
-                                    inputChangeHandler={this.productInputChangehandle} />
+                                    inputChangeHandler={this.productInputChangehandle}
+                                    addPriceHandle={this.addPriceHandle}
+                                    deletePriceHandle={this.deletePriceHandle}
+                                />
                             )
                         })}
                     </div>

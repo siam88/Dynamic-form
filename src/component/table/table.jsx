@@ -28,7 +28,11 @@ export default function table(Props) {
 }
 
 const renderVarientImages = (images, index, props, file) => {
-    if (images.length > 1)
+    if (typeof (images) === "string")
+        return (
+            <Image url={images} deleteImage={() => props.deleteImage(index, 0)} />
+        );
+    else if (images.length > 1)
         return (
             <Grid
                 container
