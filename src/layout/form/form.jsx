@@ -55,14 +55,19 @@ class Form extends Component {
         }
     }
     verientSubmitHandle = e => {
+
         e.preventDefault();
+        console.log(this.state.varientForm)
         let varientForm = { ...this.state.varientForm };
         let verientArray = [...this.state.verientArray];
+        console.log("verientArray", verientArray);
 
         let varient = {};
         for (let e in varientForm) {
             if (varientForm[e].separetor === undefined) {
                 varient[e] = varientForm[e].config.value;
+                console.log("verientArray value", varientForm[e].config.value)
+
             }
         }
         verientArray.push(varient);
@@ -231,8 +236,7 @@ class Form extends Component {
                                     required={e.required}
                                     elementName={e.elementName}
                                     inputChangeHandler={this.productInputChangehandle}
-                                    addPriceHandle={this.addPriceHandle}
-                                    deletePriceHandle={this.deletePriceHandle}
+
                                 />
                             )
                         })}
@@ -250,7 +254,9 @@ class Form extends Component {
                                     required={e.required}
                                     elementName={e.elementName}
                                     inputChangeHandler={this.varientInputChangehandle}
-                                    styles={this.state.style} />
+                                    styles={this.state.style}
+                                    addPriceHandle={this.addPriceHandle}
+                                    deletePriceHandle={this.deletePriceHandle} />
                             )
                         })}
                     </div>

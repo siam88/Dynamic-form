@@ -14,16 +14,27 @@ export default function table(Props) {
     let props = { ...Props };
     props.styles = props.styles ? props.styles : defaultStyles;
     return (
-        <Table className={props.styles.root}>
-            <TableHead>
-                <TableRow>{renderTableHeader(props.tableHeaders, props)}</TableRow>
-            </TableHead>
-            <TableBody>
-                {props.tableData.map((e, i) => (
-                    <TableRow>{renderTableCells(e, i, props)}</TableRow>
-                ))}
-            </TableBody>
-        </Table>
+        <Grid container>
+            <Grid item xs={12} sm={12} md={12} style={{
+
+                width: "100%",
+                overflow: "auto",
+
+            }}>
+                <Table className={props.styles.root} >
+                    <TableHead>
+                        <TableRow>{renderTableHeader(props.tableHeaders, props)}</TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {props.tableData.map((e, i) => (
+                            <TableRow>{renderTableCells(e, i, props)}</TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Grid>
+
+        </Grid>
+
     );
 }
 
@@ -40,7 +51,7 @@ const renderVarientImages = (images, index, props, file) => {
                     height: "120px",
                     width: "130px",
                     overflow: "auto",
-                    border: "1px solid rgb(134, 134, 134)"
+                    border: "1px solid rgb(214, 214, 214)"
                 }}
                 spacing={12}
             >
@@ -89,26 +100,40 @@ const renderTableCells = (obj, i, props) => {
                     {renderVarientImages(obj[e], i, props, true)}
                 </TableCell>
             );
-        else {
-            if (e === "color") {
-                v = (
-                    <TableCell className={props.styles.tableCell}>
-                        <div
-                            style={{
-                                backgroundColor: obj[e],
-                                height: "25px",
-                                width: "25px",
-                                borderRadius: "50%"
-                            }}
-                        />{" "}
-                    </TableCell>
-                );
-            } else
-                v = <TableCell className={props.styles.tableCell}>{obj[e]}</TableCell>;
-        }
-
+        else if (e === "color") {
+            v = (
+                <TableCell className={props.styles.tableCell}>
+                    <div
+                        style={{
+                            backgroundColor: obj[e],
+                            height: "25px",
+                            width: "25px",
+                            borderRadius: "50%"
+                        }}
+                    />{" "}
+                </TableCell>
+            );
+        } else if (e === "packagePrice") {
+            v = (<TableCell>
+                <div style={{
+                    height: "100px",
+                    width: "150px",
+                    overflow: "auto"
+                }}>
+                    {obj[e].map((e, i) => (
+                        <p>
+                            piece: {e.piece} -- price: {e.price}
+                        </p>
+                    ))}
+                </div>
+            </TableCell>);
+        } else
+            v = <TableCell className={props.styles.tableCell}>{obj[e]}</TableCell>;
         tableCells.push(v);
     }
+
+
+
 
     return tableCells;
 };

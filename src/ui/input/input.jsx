@@ -149,7 +149,7 @@ export class Input extends Component {
                             </Grid>
                             <Grid item xs={12} md={12} sm={12}>
                                 <Button variant="outlined" onClick={() => this.setState({ packagePricingModal: !this.state.packagePricingModal })}>
-                                    {this.state.packagePricingModal ? (<span>{"Close package Pricing"}</span>) : (<span>{"Open package Pricing"}</span>)}}
+                                    {this.state.packagePricingModal ? (<span>{"Close package Pricing"}</span>) : (<span>{"Open package Pricing"}</span>)}
                                 </Button>
                                 {this.state.packagePricingModal && (
                                     <div style={{ width: "100%" }}>

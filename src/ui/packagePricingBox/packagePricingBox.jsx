@@ -15,14 +15,14 @@ class PackagePricingBox extends Component {
     render() {
         return (
             <Paper>
-                <Grid container spacing={24}>
+                <Grid container spacing={3}>
 
 
                     <Grid item xs={12} sm={12} md={12}>
                         <h3 style={{ background: "whitesmoke" }}>ADD PACKAGE PRICING</h3>
                     </Grid>
 
-                    <Grid item xs={6} sm={6} md={6} >
+                    <Grid item xs={12} sm={6} md={6} >
                         <TextField
                             id="standard-number"
                             label="Piece"
@@ -35,7 +35,7 @@ class PackagePricingBox extends Component {
                             margin="normal"
                         />
                     </Grid>
-                    <Grid item xs={6} sm={8} md={6}>
+                    <Grid item xs={12} sm={6} md={6}>
                         <TextField
                             id="standard-number"
                             label="Price"
@@ -49,7 +49,27 @@ class PackagePricingBox extends Component {
                         />
                     </Grid>
 
+                    <Grid item xs={12} sm={12} md={12}>
+                        <Button variant="outlined" onClick={() => this.props.addPriceHandle(this.state.piece, this.state.price)}>ADD</Button>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12}>
+                        {this.props.prices.map((e, i) => (
+                            <Grid container spacing={2} key={i}>
+                                <Grid item xs={4} sm={6} md={4}>
+                                    <p><b>{e.piece}</b> PIECE{" "}</p>
+                                </Grid>
+
+                                <Grid item xs={4} sm={6} md={4}>
+                                    <p><b>{e.price}</b> BDT{" "}</p>
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={4}>
+                                    <Button variant="outlined" color="secondary" onClick={() => this.props.deletePriceHandle(i)}>DELETE</Button>
+                                </Grid>
+                            </Grid>
+                        ))}
+                    </Grid>
                 </Grid>
+
             </Paper>
 
         )
