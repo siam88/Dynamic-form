@@ -261,7 +261,7 @@ class Form extends Component {
                         })}
                     </div>
                     <Grid item xs={12} md={12} sm={12} >
-                        <Button style={{ width: "10%", left: "50%", marginBottom: "10px" }} variant="outlined" onClick={this.verientSubmitHandle} disabled={!(this.state.varientFormIsValid)} >Verient Submit</Button>
+                        <Button style={{ left: "50%", marginBottom: "10px" }} variant="outlined" onClick={this.verientSubmitHandle} disabled={!(this.state.varientFormIsValid)} >Verient Submit</Button>
 
                     </Grid>
 
@@ -276,7 +276,7 @@ class Form extends Component {
 
 
                     <Grid item xs={12} md={12} sm={12}>
-                        <Button style={{ width: "10%", left: "50%" }} variant="outlined" onClick={(e) => this.productSubmitHandle(e)} disabled={!(this.state.formIsValid && this.state.varientFormIsValid)} >Form Submit</Button>
+                        <Button style={{ left: "50%" }} variant="outlined" onClick={(e) => this.productSubmitHandle(e)} disabled={!(this.state.formIsValid && this.state.varientFormIsValid)} >Form Submit</Button>
 
                     </Grid>
                 </div>
