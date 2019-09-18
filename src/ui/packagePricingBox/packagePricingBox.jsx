@@ -50,7 +50,7 @@ class PackagePricingBox extends Component {
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={12}>
-                        <Button variant="outlined" onClick={() => this.props.addPriceHandle(this.state.piece, this.state.price)}>ADD</Button>
+                        <Button variant="outlined" style={{ left: "40%" }} onClick={() => this.props.addPriceHandle(this.state.piece, this.state.price)}>ADD</Button>
                     </Grid>
                     <Grid item xs={12} sm={12} md={12}>
                         {this.props.prices.map((e, i) => (

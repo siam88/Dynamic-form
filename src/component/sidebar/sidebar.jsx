@@ -22,6 +22,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import { NavLink, Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router";
 import routers from "../../data/routes";
+import { Button } from '@material-ui/core';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -93,7 +94,7 @@ const switchRoutes = (
         ))}
     </Switch>
 )
-export default function MiniDrawer() {
+export default function MiniDrawer(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -156,6 +157,7 @@ export default function MiniDrawer() {
                     {routers.map((e, index) => {
                         const linkTo = {
                             pathname: e.path,
+                            onLogout: props.onLogout
                         };
                         return (
                             <NavLink to={linkTo} style={{ textDecoration: "none" }}>
@@ -168,6 +170,13 @@ export default function MiniDrawer() {
                             </NavLink>
                         )
                     })}
+                    <ListItem button onClick={props.onLogout}>
+                        <ListItemIcon>
+                            <i className="material-icons">highlight_off</i>
+                        </ListItemIcon>
+                        <ListItemText  >Logout</ListItemText>
+                    </ListItem>
+
                 </List>
                 <Divider />
                 <List>

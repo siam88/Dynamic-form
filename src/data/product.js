@@ -1,133 +1,57 @@
-const productData = {
+const productForm = {
     title: {
-        label: "Primary Info",
+        label: "primary info",
         type: String,
+
         config: {
             type: "title"
         },
         validation: {
-            required: { value: false, msg: "title must be given" }
+            required: { value: false, msg: "Field must be filled." }
         },
-
         errorMsg: "",
         valid: true,
         separetor: false
-
-    },
-    id: {
-        type: String,
-        label: "id",
-        config: {
-            type: "text",
-            value: "",
-            placeholder: "Id",
-            id: "standard-number",
-            margin: "normal"
-        },
-        validation: {
-            type: { value: String, msg: "Id Must be string" },
-            maxLength: { value: 10, msg: "Max length is 10" },
-            minLength: { value: 3, msg: "Min length is 3" },
-            required: { value: true, msg: "id is required " }
-        },
-        errorMsg: "",
-        valid: false,
-        touched: false
     },
     name: {
         type: String,
         label: "Name",
+
         config: {
             type: "text",
-            value: "",
-            placeholder: "Name",
-            id: "custom-css-outlined-input"
+            placeHolder: "Name",
+            value: ""
         },
         validation: {
-            type: { value: String, msg: "Id Must be string" },
-            maxLength: { value: 10, msg: "Max length is 10" },
-            minLength: { value: 3, msg: "Min length is 3" },
-            required: { value: true, msg: "Name is required " }
+            type: { value: String, msg: "name should be in alphabet." },
+            maxlength: { value: 20, msg: "Maximum length 20." },
+            minlength: { value: 3, msg: "Minimum length 3." },
+            required: { value: true, msg: "Name is required." }
         },
         errorMsg: "",
         valid: false,
         touched: false
     },
-    price: {
-        type: Number,
-        label: "Price",
-        config: {
-            type: "number",
-            value: "",
-            placeholder: "price",
-            id: "custom-css-outlined-input"
-        },
-        validation: {
-            type: { value: Number, msg: "price Must be Number" },
-            max: { value: 1000, msg: "Max  is 1000" },
-            min: { value: 1, msg: "Min is 1" },
-            required: { value: true, msg: "discount is required " }
-        },
-        errorMsg: "",
-        valid: false,
-        touched: false
-    },
-    discount: {
-        type: Number,
-        label: "Discount",
-        config: {
-            type: "number",
-            value: "",
-            placeholder: "discount",
-            id: "custom-css-outlined-input"
-        },
-        validation: {
-            type: { value: Number, msg: "discount Must be string" },
-            max: { value: 1000, msg: "Max  is 1000" },
-            min: { value: 1, msg: "Min is 1" },
-            required: { value: false, msg: "discount is required " }
-        },
-        errorMsg: "",
-        valid: false,
-        touched: false
-    },
-    catagory: {
-        type: "select",
-        label: "Catagory",
-        config: {
-            type: "select",
-            value: "",
-            options: [
-                { value: " ", label: "choose" },
-                { value: "Mans", label: "Mans" },
-                { value: "Womans", label: "Womans" },
-            ]
-        },
-        validation: {
-            type: { value: "select", msg: "Select any item" },
-            required: { value: true, msg: "selection required" }
-        },
-        errorMsg: "",
-        valid: false,
-        touched: false
-    },
+
     image: {
         type: File,
-        label: "Upload Image",
+        label: "Thumbnail Image ",
         config: {
             type: "file",
             value: null
         },
         validation: {
-            type: { value: "file", valid: ["jpeg", "jgp", "png"], msg: "must upload an image" },
-            required: { value: true, msg: "file format is not valid" }
+            type: {
+                value: "file",
+                valid: ["jpeg", "jpg", "png"],
+                msg: "Max length 100"
+            },
+            required: { value: true, msg: "Thumbnail image is mandatory." }
         },
         errorMsg: "",
         valid: false,
         touched: false
-
     }
+};
 
-
-}
-export default productData;
+export default productForm;
