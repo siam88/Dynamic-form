@@ -10,7 +10,8 @@ import { Redirect } from "react-router"
 
 class App extends Component {
   state = {
-    auth: false
+    auth: false,
+    Allproducts: []
   }
 
   onAuthentication = auth => {

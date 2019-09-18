@@ -28,6 +28,8 @@ class Form extends Component {
         verientArray: []
     }
 
+
+
     // product functions start
     productInputChangehandle = (elementName, value) => {
 

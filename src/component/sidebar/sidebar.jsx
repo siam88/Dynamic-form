@@ -160,8 +160,8 @@ export default function MiniDrawer(props) {
                             onLogout: props.onLogout
                         };
                         return (
-                            <NavLink to={linkTo} style={{ textDecoration: "none" }}>
-                                <ListItem button key={index}>
+                            <NavLink to={linkTo} style={{ textDecoration: "none" }} key={index}>
+                                <ListItem button >
                                     <ListItemIcon>
                                         <i className="material-icons">{e.icon}</i>
                                     </ListItemIcon>
