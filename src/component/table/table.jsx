@@ -27,7 +27,7 @@ export default function table(Props) {
                     </TableHead>
                     <TableBody>
                         {props.tableData.map((e, i) => (
-                            <TableRow>{renderTableCells(e, i, props)}</TableRow>
+                            <TableRow onClick={() => props.getVarient && props.getVarient(e._id)}>{renderTableCells(e, i, props)}</TableRow>
                         ))}
                     </TableBody>
                 </Table>

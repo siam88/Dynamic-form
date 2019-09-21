@@ -1,6 +1,6 @@
 import Home from '../view/home/home';
 import productUploadingForm from '../view/productUploadingForm/productUploadingForm'
-
+import cart from "../component/cart/cart"
 
 const prePath = "/dashboard";
 const routes = [
@@ -12,9 +12,9 @@ const routes = [
         icon: "home"
     },
     {
-        name: "Contact",
-        path: prePath + "/contact",
-        component: null,
+        name: "Cart",
+        path: prePath + "/cart",
+        component: cart,
         layout: "/dashboard",
         icon: "contacts"
     },
